@@ -10,7 +10,7 @@ phases:
   build:
     commands:
       - echo Zipping Lambda function...
-      - zip -r function.zip . -x "node_modules/aws-sdk/**"  # Exclude AWS SDK (it's preinstalled in Lambda)
+      - zip -r function.zip index.mjs
 
   post_build:
     commands:
