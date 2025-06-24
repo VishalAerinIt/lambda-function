@@ -3,18 +3,12 @@ version: 0.2
 phases:
   install:
     runtime-versions:
-      nodejs: 22
-    commands:
-      - echo Installing Node.js dependencies...
-
+      nodejs: 18
   build:
     commands:
-      - echo Zipping Lambda function...
-      - zip -r function.zip index.mjs
+      - zip -r function.zip index.js
+      - aws s3 cp function.zip s3://$S3_BUCKET/my-function.zip
 
-  post_build:
-    commands:
-      - echo Uploading ZIP to S3...
-      - aws s3 cp function.zip s3://lambda-function-vishal/lambda/function.zip
-      - echo Updating Lambda function...
-      - aws lambda update-function-code --function-name HelloWorldFunction --s3-bucket lambda-function-vishal --s3-key lambda/function.zip
+artifacts:
+  files:
+    - function.zip
