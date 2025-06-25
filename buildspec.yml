@@ -6,9 +6,11 @@ phases:
       nodejs: 18
   build:
     commands:
-      - zip -r function.zip index.js
-      - aws s3 cp function.zip s3://$S3_BUCKET/lambda.zip
-
-artifacts:
-  files:
-    - lambda.zip
+      - echo "Zipping lambda code"
+      - cd lambda
+      - zip -r ../lambda.zip .
+      - cd ..
+      - echo "Uploading to S3..."
+      - aws s3 cp lambda.zip s3://$S3_BUCKET/lambda.zip
+      - echo "Updating Lambda function"
+      - aws lambda update-function-code --function-name $LAMBDA_FUNCTION_NAME --s3-bucket $S3_BUCKET --s3-key lambda.zip
