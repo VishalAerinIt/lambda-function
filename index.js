@@ -1,8 +1,7 @@
-export const handler = async (event) => {
-  // TODO implement
+exports.handler = async (event) => {
   const response = {
     statusCode: 200,
-    body: JSON.stringify('Hello DevOps'),
+    body: JSON.stringify('Hello DevSecOps'),
   };
   return response;
 };
