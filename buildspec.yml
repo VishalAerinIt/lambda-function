@@ -1,10 +1,5 @@
 version: 0.2
 
-env:
-  variables:
-    S3_BUCKET: artifact-bucket-2cf3b8bd
-    LAMBDA_FUNCTION_NAME: your-lambda-function-name
-
 phases:
   install:
     runtime-versions:
