@@ -4,14 +4,15 @@ phases:
   install:
     runtime-versions:
       nodejs: 18
+
   build:
     commands:
-      - echo "Zipping lambda code"
+      - echo "Zipping lambda code..."
       - ls -la
-      - zip -r index.js
+      - zip -r lambda.zip index.js node_modules/ package.json package-lock.json
       - echo "Verifying lambda.zip exists..."
       - ls -lh lambda.zip
       - echo "Uploading to S3: $S3_BUCKET"
       - aws s3 cp lambda.zip s3://$S3_BUCKET/lambda.zip
-      - echo "Updating Lambda function"
-      - aws lambda update-function-code --function-name $LAMBDA_FUNCTION_NAME --s3-bucket $S3_BUCKET --s3-key lambda.zip
+      - echo "Updating Lambda function..."
+      - aws lambda update-function-code --function-name "$LAMBDA_FUNCTION_NAME" --s3-bucket "$S3_BUCKET" --s3-key lambda.zip
