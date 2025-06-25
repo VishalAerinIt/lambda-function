@@ -3,18 +3,15 @@ version: 0.2
 phases:
   install:
     runtime-versions:
-      nodejs: 18
+      nodejs: 20
 
   build:
     commands:
       - echo "Installing dependencies..."
-      - npm install
-      - echo "Zipping lambda code..."
-      - rm -f lambda.zip
-      - zip -r lambda.zip index.js node_modules/ package.json package-lock.json
+      - zip -r lambda.zip index.js
       - echo "Verifying lambda.zip exists..."
       - ls -lh lambda.zip
-      - echo "Uploading to S3: artifact-bucket-e5c7378d"
+      - echo "Uploading to S3"
       - aws s3 cp lambda.zip s3://artifact-bucket-e5c7378d/lambda.zip
       - echo "Updating Lambda function..."
       - aws lambda update-function-code --function-name "example_lambda" --s3-bucket artifact-bucket-e5c7378d --s3-key lambda.zip
