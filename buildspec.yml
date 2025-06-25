@@ -7,8 +7,10 @@ phases:
 
   build:
     commands:
+      - echo "Installing dependencies..."
+      - npm install
       - echo "Zipping lambda code..."
-      - ls -la
+      - rm -f lambda.zip
       - zip -r lambda.zip index.js node_modules/ package.json package-lock.json
       - echo "Verifying lambda.zip exists..."
       - ls -lh lambda.zip
