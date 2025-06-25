@@ -1,5 +1,10 @@
 version: 0.2
 
+env:
+  variables:
+    S3_BUCKET: artifact-bucket-2cf3b8bd
+    LAMBDA_FUNCTION_NAME: your-lambda-function-name
+
 phases:
   install:
     runtime-versions:
@@ -8,10 +13,12 @@ phases:
     commands:
       - echo "Zipping lambda code"
       - ls -la
-      - cd lambda
+      - cd lambda || { echo "lambda directory not found"; exit 1; }
       - zip -r ../lambda.zip .
       - cd ..
-      - echo "Uploading to S3..."
-      - aws s3 cp lambda.zip s3://artifact-bucket-2cf3b8bd/lambda.zip
+      - echo "Verifying lambda.zip exists..."
+      - ls -lh lambda.zip
+      - echo "Uploading to S3: $S3_BUCKET"
+      - aws s3 cp lambda.zip s3://$S3_BUCKET/lambda.zip
       - echo "Updating Lambda function"
-      - aws lambda update-function-code --function-name $LAMBDA_FUNCTION_NAME --s3-bucket artifact-bucket-2cf3b8bd --s3-key lambda.zip
+      - aws lambda update-function-code --function-name $LAMBDA_FUNCTION_NAME --s3-bucket $S3_BUCKET --s3-key lambda.zip
