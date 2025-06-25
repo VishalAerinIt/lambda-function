@@ -13,9 +13,7 @@ phases:
     commands:
       - echo "Zipping lambda code"
       - ls -la
-      - cd lambda || { echo "lambda directory not found"; exit 1; }
-      - zip -r ../lambda.zip .
-      - cd ..
+      - zip -r index.js
       - echo "Verifying lambda.zip exists..."
       - ls -lh lambda.zip
       - echo "Uploading to S3: $S3_BUCKET"
