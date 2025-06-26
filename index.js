@@ -1,7 +1,7 @@
 exports.handler = async (event) => {
   const response = {
     statusCode: 200,
-    body: JSON.stringify('Hello Aerin IT'),
+    body: JSON.stringify('Hello Manish Sir'),
   };
   return response;
 };
