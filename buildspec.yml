@@ -12,6 +12,6 @@ phases:
       - echo "Verifying lambda.zip exists..."
       - ls -lh lambda.zip
       - echo "Uploading to S3"
-      - aws s3 cp lambda.zip s3://artifact-bucket-05f100e5/lambda.zip
+      - aws s3 cp lambda.zip s3://artifact-bucket-cd468eab/lambda.zip
       - echo "Updating Lambda function..."
-      - aws lambda update-function-code --function-name "example_lambda" --s3-bucket artifact-bucket-05f100e5 --s3-key lambda.zip
+      - aws lambda update-function-code --function-name "example_lambda" --s3-bucket artifact-bucket-cd468eab --s3-key lambda.zip
